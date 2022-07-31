@@ -1,57 +1,51 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-</head>
-<body>
-
-
+	<div class="newstitle">Breaking News</div>
+	
+	
+  <div align="center">
 <form action="controller" method="post"> 
-  <h1>Регистрация пользователя:</h1>
-  <div>
+<div>
+  <h1>User registration:</h1>
     <input type="text" id="first_name" name="firstName" required>
-    <label for="first_name">Имя</label><br><br>
-           
+    <label for="first_name">Name</label><br>
+     <br>      
     <input type="text" id="last_name" name="lastName" required>
-    <label for="last_name">Фамилия</label><br><br>
-                  
-    <p>Пол:</p>
-    <input type="radio" id="gender" name="gender" value="male">Мужской
-    <input type="radio" id="gender" name="gender" value="female">Женский
-    <br><br>
+    <label for="last_name">Surname</label><br>
+      <br>            
+    <p>gender:</p>
+    <input type="radio" id="gender" name="gender" value="male">Male
+    <input type="radio" id="gender" name="gender" value="female">Female
+    <br>
     
     <input type="email" id="email" name="email" size="42px" required >
-    <label for="email">Email</label><br><br>
-    
-
-    
+    <label for="email">Email</label><br>
+     <br>   
     <input type="text" id="login" name="login" required>
-    <label for="login">Логин</label>
-    <br><br>
-    
+    <label for="login">Login</label><br>
+    <br>
     <input type="password" id="password" name="password" required>
-    <label for="password">Пароль</label>
-    <br><br>
-    
+    <label for="password">Password</label> <br>
+    <br>
     <input type="confirmPassword" id="confirmPassword" name="confirmPassword" required>
-    <label for="confirmPassword">Подтвердите пароль</label>
+    <label for="confirmPassword">Confirm Password</label><br>
            
-  </div><br/>
+  </div>
   
+<c:forEach items="${invalidRegistration}" var="item">
+<font color="red"> 
+   ${item}
+   </font>
+</c:forEach>
+  <br>
   <div>
     <input type="hidden" name="command" value="do_registration" />
-    <input type="submit" value="Зарегистрироваться"/>
-    <button type="reset">Очистить форму</button>
+    <input type="submit" value="Registration"/>
+    <button type="reset">Reset</button>
   </div>
   
 </form>  
-  
-       
+  </div>
 
 
-</body>
-</html>
+

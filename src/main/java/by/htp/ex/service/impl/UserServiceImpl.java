@@ -1,5 +1,7 @@
 package by.htp.ex.service.impl;
 
+import java.util.List;
+
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
@@ -13,9 +15,11 @@ public class UserServiceImpl implements IntUserService {
 
 	private final IntUserDao userDAO = DaoProvider.getInstance().getUserDao();
 	private final UserDataValidation userDataValidation = ValidationProvider.getInstance().getUserDataValidation();
+	
 
 	@Override
 	public String signIn(String login, String password) throws ServiceException {
+		
 		/*
 		 * if(!userDataValidation.checkAUthData(login, password)) { throw new
 		 * ServiceException("login ...... "); }
@@ -35,10 +39,19 @@ public class UserServiceImpl implements IntUserService {
 
 	@Override
 	public boolean registration(NewUserInfo user) throws ServiceException {
-		// TODO Auto-generated method stub
-		return true;
+		
+		try {
+		if(userDataValidation.checkRegistration(user)) {
+				return userDAO.registration(user); 
+		}
+		else {
+			throw new ServiceException(userDataValidation.getIncorrectData()); 
+		}
+		}
+		 catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+
 	}
 	
-
-
 }

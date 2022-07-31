@@ -1,9 +1,17 @@
 package by.htp.ex.service.validation;
 
+import java.util.List;
+
+import by.htp.ex.bean.NewUserInfo;
+
 public interface UserDataValidation {
 	
-	boolean checkName(String name); // метод не выбр-ет exception, нам нужен true или false
+	boolean checkLogin(String login); 
 	
 	boolean checkPassword(String password);
+	
+	boolean checkRegistration(NewUserInfo user);
+	
+	List<String> getIncorrectData();
 
 }

@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DoRegistration implements Command {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		IntUserService userService = ServiceProvider.getInstance().getUserService();
 		
@@ -27,8 +27,8 @@ public class DoRegistration implements Command {
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirm_password");
-		String invalidRegistration = "invalidRegistration";
+		String confirmPassword = request.getParameter("confirmPassword");
+		
 		
 		
 		
@@ -37,20 +37,21 @@ public class DoRegistration implements Command {
 				password, confirmPassword);
 
 		try {
-			String role = userService.signIn(login, password);
 			
-			if (!userService.registration(user)) {
-				
-				request.setAttribute("invalidRegistration", invalidRegistration);
-				
-			}
+			if (userService.registration(user)) {
+							
 			request.getSession(true).setAttribute("user", "active");
-			//request.setAttribute("registration_status", true);
-			request.getSession(true).setAttribute("role", role);
-			response.sendRedirect("controller?command=go_to_news_list");
-			//request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
-		} catch (ServiceException e) {
+	
+				response.sendRedirect("controller?command=go_to_news_list");
+
+			}
 			
+		} catch (ServiceException massage) {
+			List<String> invalidRegistrationData = massage.getListMassage();
+			System.out.println("DoRegistration" + invalidRegistrationData.toString()); 
+			request.setAttribute("invalidRegistration", invalidRegistrationData);
+			request.getRequestDispatcher("WEB-INF/jsp/registration.jsp").forward(request, response);
+
 		}
 	}
 

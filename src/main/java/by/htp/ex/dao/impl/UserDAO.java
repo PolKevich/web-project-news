@@ -9,7 +9,8 @@ public class UserDAO implements IntUserDao {
 	@Override
 	public boolean logination(String login, String password) throws DaoException {
 		
-		return true;
+	//	return true;
+		return false;
 	}
 
 	@Override
