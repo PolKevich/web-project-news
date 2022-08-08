@@ -1,7 +1,8 @@
 package by.htp.ex.service.validation;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import by.htp.ex.bean.NewUserInfo;
@@ -11,7 +12,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 	private final static String regPassword = "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$";
 	private final static String regEmail = "^(.+)@(.+)$";
 	
-	private List<String> incorrectData = new ArrayList<String>();
+	private Map<String, String> incorrectData = new HashMap();
 	
 	@Override
 	public boolean checkLogin(String login) {
@@ -22,7 +23,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 		}
 		else {
 			System.out.println("checkLogin = false");
-			incorrectData.add("incorrectLogin");
+			incorrectData.put("login", "incorrectLogin");
 		return false;
 		}
 	}
@@ -35,7 +36,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 		}
 		else {
 			System.out.println("checkPassword = false");
-			incorrectData.add("incorrectPassword");
+			incorrectData.put("password", "incorrectPassword");
 		return false;
 		}
 	}
@@ -47,7 +48,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 		
 		}
 		else {
-			incorrectData.add("PasswordNotEqualsConfirmPassword");
+			incorrectData.put("confirmPassword", "PasswordNotEqualsConfirmPassword");
 			return false;
 		}
 	}
@@ -58,7 +59,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 			return true;
 		}
 		else {
-			incorrectData.add("incorrectEmail");
+			incorrectData.put("email", "incorrectEmail");
 			System.out.println("checkEmail = false");
 		return false;
 		}
@@ -77,7 +78,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 	}
 
 
-	public List<String> getIncorrectData(){
+	public Map<String, String> getIncorrectData(){
 		return incorrectData;
 	}
 }

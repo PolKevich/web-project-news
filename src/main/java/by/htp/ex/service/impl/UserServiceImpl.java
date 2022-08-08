@@ -42,9 +42,11 @@ public class UserServiceImpl implements IntUserService {
 		
 		try {
 		if(userDataValidation.checkRegistration(user)) {
+			System.out.println(" userDataValidation.checkRegistration " + userDataValidation.checkRegistration(user));	
 				return userDAO.registration(user); 
 		}
 		else {
+			System.out.println("registration" + userDataValidation.getIncorrectData().toString());
 			throw new ServiceException(userDataValidation.getIncorrectData()); 
 		}
 		}

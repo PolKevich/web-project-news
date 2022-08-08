@@ -7,36 +7,41 @@
 <form action="controller" method="post"> 
 <div>
   <h1>User registration:</h1>
-    <input type="text" id="first_name" name="firstName" required>
-    <label for="first_name">Name</label><br>
-     <br>      
-    <input type="text" id="last_name" name="lastName" required>
-    <label for="last_name">Surname</label><br>
+    Name: <input type="text" id="first_name" name="firstName"  required placeholder="Ivan"><br />     
+     <br> 
+    Surname: <input type="text" id="last_name" name="lastName" required placeholder="Ivanov"><br />
       <br>            
-    <p>gender:</p>
-    <input type="radio" id="gender" name="gender" value="male">Male
+    gender: <input type="radio" id="gender" name="gender" value="male">Male
     <input type="radio" id="gender" name="gender" value="female">Female
     <br>
+    <br> 
     
-    <input type="email" id="email" name="email" size="42px" required >
-    <label for="email">Email</label><br>
-     <br>   
-    <input type="text" id="login" name="login" required>
-    <label for="login">Login</label><br>
+    Email: <input type="email" id="email" name="email"  size="42px" required placeholder="Ivanov@mail.com"><br />
+    <font color="red"> 
+	<c:out value="${email}" />
+	</font> 
+       
+     <br>  
+     
+    Login: <input type="text" id="login" name="login"  required><br />
+    <font color="red"> 
+	<c:out value="${login}" />
+	</font>
     <br>
-    <input type="password" id="password" name="password" required>
-    <label for="password">Password</label> <br>
+
+    Password: <input type="password" id="password" name="password" required placeholder="abcABC123$"><br />
+    <font color="red"> 
+	 <c:out value="${password}" />
+	</font>
+	 
     <br>
-    <input type="confirmPassword" id="confirmPassword" name="confirmPassword" required>
-    <label for="confirmPassword">Confirm Password</label><br>
+    Confirm Password: <input type="password" id="password" name="confirmPassword" required><br />
+     <font color="red"> 
+	<c:out value="${confirmPassword}" />
+	</font>
            
   </div>
   
-<c:forEach items="${invalidRegistration}" var="item">
-<font color="red"> 
-   ${item}
-   </font>
-</c:forEach>
   <br>
   <div>
     <input type="hidden" name="command" value="do_registration" />

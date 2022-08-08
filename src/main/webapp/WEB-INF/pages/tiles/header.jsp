@@ -24,9 +24,11 @@
 						   <c:out value="${requestScope.AuthenticationError}" />
 						</font> 
 					</c:if>
+					<br>
 					
-					
-				<input type="submit" value="Sign In" />
+				<input type="submit" value="Sign In" /> 
+				<br>
+				
 				</form>
 				</div>
 					

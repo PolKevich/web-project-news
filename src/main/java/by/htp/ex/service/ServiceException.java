@@ -1,12 +1,14 @@
 package by.htp.ex.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ServiceException extends Exception {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private List<String> listMassage;
+	private Map<String, String> listMassage;
 	
 	public ServiceException(Exception e) {
 		super(e);
@@ -20,11 +22,12 @@ public class ServiceException extends Exception {
 		super(massage, e);
 	}
 	
-	public ServiceException(List<String> massage) {
+	public ServiceException(Map<String, String> massage) {
+		listMassage = new HashMap();
 		listMassage = massage;
 	}
 
-	public List<String> getListMassage() {
+	public Map<String, String> getListMassage() {
 		return listMassage;
 	}
 

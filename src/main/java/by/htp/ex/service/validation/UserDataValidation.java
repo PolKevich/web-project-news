@@ -1,6 +1,6 @@
 package by.htp.ex.service.validation;
 
-import java.util.List;
+import java.util.Map;
 
 import by.htp.ex.bean.NewUserInfo;
 
@@ -12,6 +12,6 @@ public interface UserDataValidation {
 	
 	boolean checkRegistration(NewUserInfo user);
 	
-	List<String> getIncorrectData();
+	Map<String, String> getIncorrectData();
 
 }
