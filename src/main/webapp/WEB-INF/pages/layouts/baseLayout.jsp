@@ -15,32 +15,43 @@
 </head>
 <body>
 	<div class="page">
+	
 		<div class="header">
-			<c:import url="/WEB-INF/pages/tiles/header.jsp" />
+							
+				    <c:import url="/WEB-INF/pages/tiles/header.jsp" />
 		</div>
+		
+		<div class="base-layout-wrapper">
 					<div class="menu">
 
-				<c:if test="${not (sessionScope.user eq 'active')}">
+				<c:if test="${sessionScope.user eq 'notActive'}">
 				    Welcome!!!!!
 					<%-- <c:import url=""></c:import> --%>
 				</c:if>
+				
 				<c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/menu.jsp" />
 				</c:if>
 			</div>
+			
 				<div class="content">
 
-				<c:if test="${not (sessionScope.user eq 'active')}">
+				<c:if test="${sessionScope.user eq 'notActive'}">
 					<c:import url="/WEB-INF/pages/tiles/guestInfo.jsp" />
 				</c:if>
+				
 				<c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/body.jsp" />
 					<%--!body will order to fix what newslist--%>>
 				</c:if>
-
-
+               
+		             <c:if test="${(sessionScope.user eq 'registration')}">
+				     <c:import url="/WEB-INF/jsp/registration.jsp" />
+				     </c:if> <br />
+				     	
 			</div>
-					</div>
+			</div>
+			
 
 		<div class="footer">
 

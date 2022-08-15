@@ -2,8 +2,10 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.controller.Command;
@@ -47,7 +49,15 @@ public class DoRegistration implements Command {
 			
 		} catch (ServiceException massage) {
 			
-			Map<String, String> invalidRegistrationData = massage.getListMassage();
+			Map<String, String> invalidRegistrationData = new HashMap();
+			
+			for(Entry<String, String> entry: massage.getListMassage().entrySet()) {
+				String key = entry.getKey();
+				String value = entry.getValue();
+				invalidRegistrationData.put(key, value);
+			}
+			
+			 massage.clearListMassage();
 			
 			if(invalidRegistrationData.containsKey("email")) {
 			email = invalidRegistrationData.get("email"); 
@@ -69,7 +79,7 @@ public class DoRegistration implements Command {
 				confirmPassword = invalidRegistrationData.get("confirmPassword"); 
 				request.getSession(true).setAttribute("confirmPassword", confirmPassword);
 				}
-			request.getSession(true).setAttribute("user", "not_active");
+			invalidRegistrationData.clear();
 			response.sendRedirect("controller?command=go_to_registration_page");
 
 		}

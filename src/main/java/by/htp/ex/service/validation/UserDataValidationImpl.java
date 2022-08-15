@@ -6,79 +6,84 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 import by.htp.ex.bean.NewUserInfo;
+import by.htp.ex.dao.DaoException;
+import by.htp.ex.service.ServiceException;
 
 public class UserDataValidationImpl implements UserDataValidation {
 	private final static String regLogin = "^[a-zA-Z]{3,16}";
 	private final static String regPassword = "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$";
 	private final static String regEmail = "^(.+)@(.+)$";
 	
-	private Map<String, String> incorrectData = new HashMap();
 	
 	@Override
-	public boolean checkLogin(String login) {
+	public boolean checkLogin(String login) throws ServiceException {
 		
-		if(Pattern.compile(regLogin).matcher(login).matches()) {
-			System.out.println("checkLogin = true");
-			return true;
+		boolean checkLogin = true;
+		
+		if(!(Pattern.compile(regLogin).matcher(login).matches())) {
+			
+			checkLogin = false;
+			throw new ServiceException("login", "incorrectLogin!");
 		}
-		else {
-			System.out.println("checkLogin = false");
-			incorrectData.put("login", "incorrectLogin");
-		return false;
-		}
+		
+		return checkLogin;
+		
 	}
 
 	@Override
-	public boolean checkPassword(String password) {
-		if(Pattern.compile(regPassword).matcher(password).matches()) {
-			System.out.println("checkPassword = true");
-			return true;
+	public boolean checkPassword(String password) throws ServiceException {
+		
+		boolean checkPassword = true;
+		
+		if(!(Pattern.compile(regPassword).matcher(password).matches())) {
+			
+			checkPassword = false;
+			throw new ServiceException("password", "incorrectPassword");
 		}
-		else {
-			System.out.println("checkPassword = false");
-			incorrectData.put("password", "incorrectPassword");
-		return false;
-		}
+		
+		return checkPassword;
+		
 	}
 	
-	public boolean checkPasswordAndConfirmPassword(String password, String confirmPassword) {
+	public boolean checkPasswordAndConfirmPassword(String password, String confirmPassword) throws ServiceException {
+		
 		if (password.equals(confirmPassword)) {
 			
 		return checkPassword(password);
 		
 		}
 		else {
-			incorrectData.put("confirmPassword", "PasswordNotEqualsConfirmPassword");
-			return false;
+			throw new ServiceException("confirmPassword", "PasswordNotEqualsConfirmPassword");
+			
 		}
 	}
 	
-	public boolean checkEmail(String email) {
-		if(Pattern.compile(regEmail).matcher(email).matches()) {
-			System.out.println("checkEmail = true");
-			return true;
+	public boolean checkEmail(String email) throws ServiceException {
+		
+		boolean checkEmail = true;
+		
+		if(!(Pattern.compile(regEmail).matcher(email).matches())) {
+			
+			checkEmail = false;
+			throw new ServiceException("email", "incorrectEmail");
 		}
-		else {
-			incorrectData.put("email", "incorrectEmail");
-			System.out.println("checkEmail = false");
-		return false;
-		}
+		
+		return checkEmail;
+		
 	}
 
 	@Override
-	public boolean checkRegistration(NewUserInfo user) {
-		if(checkLogin(user.getLogin()) && checkPasswordAndConfirmPassword(user.getPassword(), user.getConfirmPassword()) && checkEmail(user.getEmail())){
-			return true;
+	public boolean checkRegistration(NewUserInfo user) throws ServiceException {
+		
+		boolean checkRegistration = true;
+		
+		if(!(checkLogin(user.getLogin()) && checkPasswordAndConfirmPassword(user.getPassword(), user.getConfirmPassword()) && checkEmail(user.getEmail()))){
+			checkRegistration = false;
 		}		
-		else {
-			
-			//System.out.println("checkRegistration" + incorrectData.toString()); ///????
-		return false;
-		}
+		
+		return checkRegistration;
+		
 	}
 
 
-	public Map<String, String> getIncorrectData(){
-		return incorrectData;
-	}
 }

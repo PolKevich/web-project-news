@@ -1,11 +1,13 @@
 package by.htp.ex.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IntUserDao;
+import by.htp.ex.dao.impl.UserDAO;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.IntUserService;
 import by.htp.ex.service.validation.UserDataValidation;
@@ -39,19 +41,18 @@ public class UserServiceImpl implements IntUserService {
 
 	@Override
 	public boolean registration(NewUserInfo user) throws ServiceException {
-		
+					
 		try {
 		if(userDataValidation.checkRegistration(user)) {
-			System.out.println(" userDataValidation.checkRegistration " + userDataValidation.checkRegistration(user));	
-				return userDAO.registration(user); 
-		}
-		else {
-			System.out.println("registration" + userDataValidation.getIncorrectData().toString());
-			throw new ServiceException(userDataValidation.getIncorrectData()); 
-		}
+						
+			return userDAO.registration(user); 
+			
+		}			
+			return false;
+	
 		}
 		 catch (DaoException e) {
-			throw new ServiceException(e);
+			throw new ServiceException(DaoException.getListMassage());
 		}
 
 	}

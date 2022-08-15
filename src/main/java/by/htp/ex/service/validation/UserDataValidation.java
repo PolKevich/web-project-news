@@ -3,15 +3,15 @@ package by.htp.ex.service.validation;
 import java.util.Map;
 
 import by.htp.ex.bean.NewUserInfo;
+import by.htp.ex.service.ServiceException;
 
 public interface UserDataValidation {
 	
-	boolean checkLogin(String login); 
+	boolean checkLogin(String login) throws ServiceException; 
 	
-	boolean checkPassword(String password);
+	boolean checkPassword(String password) throws ServiceException;
 	
-	boolean checkRegistration(NewUserInfo user);
+	boolean checkRegistration(NewUserInfo user) throws ServiceException;
 	
-	Map<String, String> getIncorrectData();
 
 }

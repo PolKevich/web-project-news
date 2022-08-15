@@ -34,7 +34,7 @@ public class DoSIgnIn implements Command {
 				request.getSession(true).setAttribute("role", role); 
 				response.sendRedirect("controller?command=go_to_news_list");
 			} else {
-				request.getSession(true).setAttribute("user", "not active");
+				request.getSession(true).setAttribute("user", "notActive");
 				request.setAttribute("AuthenticationError", "wrong login or password");
 				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response); // нужен редирект
 			}

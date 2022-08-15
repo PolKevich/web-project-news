@@ -15,7 +15,7 @@ public class FrontController extends HttpServlet {
 	
 	private final CommandProvider provider = new CommandProvider();
 	
-	private ConnectionPool connectionPool;
+	//private ConnectionPool connectionPool;
   
 	
 	public FrontController() {
@@ -26,7 +26,7 @@ public class FrontController extends HttpServlet {
 	  @Override
 	  public void init() throws ServletException {
 		  
-		  super.init();  
+		//  super.init();  
                  
 		  ConnectionPool.getInstance();  
 }
@@ -49,6 +49,6 @@ public class FrontController extends HttpServlet {
 
 	@Override
 	public void destroy() {
-		connectionPool.dispose();
+		ConnectionPool.getInstance().dispose();
 	}
 }

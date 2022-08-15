@@ -9,37 +9,32 @@
 
 			<a href=""> en </a> &nbsp;&nbsp; 
 			<a	href=""> ru </a> <br /> <br />
-		</div>
-		
-		<c:if test="${not (sessionScope.user eq 'active')}">
-
+		</div>		
+		<c:if test="${sessionScope.user eq 'notActive'}">
 			<div align="right">
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="do_sign_in" /> 
 					Enter login: <input type="text" name="login" value="" /><br /> 
 					Enter password: <input type="password" name="password" value="" /><br />
-
 					<c:if test="${not (requestScope.AuthenticationError eq null)}">
 						<font color="red"> 
 						   <c:out value="${requestScope.AuthenticationError}" />
 						</font> 
 					</c:if>
-					<br>
-					
-				<input type="submit" value="Sign In" /> 
-				<br>
+										
+	<a href="controller?command=go_to_registration_page">Registration</a> <input type="submit" value="Sign In" /> 
 				
 				</form>
-				</div>
-					
-				<div align="right">
-				<form action="controller" method="post">
-					<input type="hidden" name="command" value="go_to_registration_page" /> 
-					<input type="submit" value="Registration" /> </form>
 					
 			</div>
 
-		</c:if>
+		</c:if>		
+		
+		<div align="right">
+				<c:if test="${(sessionScope.user eq 'registration')}">
+				     User registration:
+				     </div>
+				     </c:if> 
 		
 		<c:if test="${sessionScope.user eq 'active'}">
 

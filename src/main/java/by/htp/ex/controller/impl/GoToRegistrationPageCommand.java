@@ -6,14 +6,16 @@ import by.htp.ex.controller.Command;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class GoToRegistrationPageCommand implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute("registration_status", true);
-		request.getRequestDispatcher("/WEB-INF/jsp/registration.jsp").forward(request, response);		
+			
+		request.getSession(true).setAttribute("user", "registration");
+		request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);		
 	}
 
 }

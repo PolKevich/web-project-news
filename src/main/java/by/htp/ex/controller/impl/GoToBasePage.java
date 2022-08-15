@@ -19,6 +19,7 @@ public class GoToBasePage implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<News> latestNews;
+		request.getSession(true).setAttribute("user", "notActive");
 		
 		try {
 			latestNews = newsService.latestList(5);
