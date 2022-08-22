@@ -44,6 +44,16 @@
 					<c:import url="/WEB-INF/pages/tiles/body.jsp" />
 					<%--!body will order to fix what newslist--%>>
 				</c:if>
+				
+				<c:if test="${sessionScope.news eq 'addNews'}">
+					<c:import url="/WEB-INF/pages/tiles/addNews.jsp" />
+					
+				</c:if>
+				
+				<c:if test="${sessionScope.news eq 'error'}">
+					<c:import url="/WEB-INF/pages/tiles/error.jsp" />
+					
+				</c:if>
                
 		             <c:if test="${(sessionScope.user eq 'registration')}">
 				     <c:import url="/WEB-INF/jsp/registration.jsp" />

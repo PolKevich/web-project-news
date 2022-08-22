@@ -14,8 +14,6 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private final CommandProvider provider = new CommandProvider();
-	
-	//private ConnectionPool connectionPool;
   
 	
 	public FrontController() {
@@ -23,15 +21,6 @@ public class FrontController extends HttpServlet {
 		
 	}
 	
-	  @Override
-	  public void init() throws ServletException {
-		  
-		//  super.init();  
-                 
-		  ConnectionPool.getInstance();  
-}
-
-
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -46,9 +35,6 @@ public class FrontController extends HttpServlet {
 		
 		doGet(request, response);
 	}
-
-	@Override
-	public void destroy() {
-		ConnectionPool.getInstance().dispose();
-	}
+	
+	
 }

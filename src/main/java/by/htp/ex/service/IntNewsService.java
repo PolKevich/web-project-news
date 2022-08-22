@@ -3,9 +3,11 @@ package by.htp.ex.service;
 import java.util.List;
 
 import by.htp.ex.bean.News;
+import by.htp.ex.dao.NewsDAOException;
 
 public interface IntNewsService {
-	  void save();
+	
+	  boolean save(News news) throws NewsDAOException;
 	  void find();
 	  void update();
 	  

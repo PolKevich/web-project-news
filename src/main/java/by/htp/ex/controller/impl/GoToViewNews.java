@@ -2,6 +2,9 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.IntNewsService;
@@ -12,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class GoToViewNews implements Command {
+	
+	private static final Logger log = LogManager.getRootLogger();
 	
 	private final IntNewsService newsService = ServiceProvider.getInstance().getNewsService();
 
@@ -30,8 +35,8 @@ public class GoToViewNews implements Command {
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
+			response.sendRedirect("controller?command=go_to_error_page");
 		}
 		
 	}

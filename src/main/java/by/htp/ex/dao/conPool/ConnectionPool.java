@@ -68,7 +68,7 @@ public final class ConnectionPool {
 	}
 
 	public void initPoolData() throws ConnectionPoolException {
-		// строку ниже комментировать по ситуации
+		
 		// Locale.setDefault(Locale.ENGLISH);
 		try {
 			Class.forName(driverName);

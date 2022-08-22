@@ -2,6 +2,9 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import by.htp.ex.controller.Command;
 
 import by.htp.ex.service.IntUserService;
@@ -12,6 +15,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class DoSIgnIn implements Command {
+	
+	private static final Logger log = LogManager.getRootLogger();
 	
 	private final IntUserService service = ServiceProvider.getInstance().getUserService();
 
@@ -34,13 +39,16 @@ public class DoSIgnIn implements Command {
 				request.getSession(true).setAttribute("role", role); 
 				response.sendRedirect("controller?command=go_to_news_list");
 			} else {
-				request.getSession(true).setAttribute("user", "notActive");
+				//request.getSession(true).setAttribute("user", "notActive");				
+				//request.getSession(true).setAttribute("AuthenticationError", "wrong login or password");
 				request.setAttribute("AuthenticationError", "wrong login or password");
 				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response); // нужен редирект
+				response.sendRedirect("controller?command=go_to_base_page");
 			}
 			
 		} catch (ServiceException e) {
-			
+			log.error(e);
+			response.sendRedirect("controller?command=go_to_error_page");
 		}
 		
 	}
