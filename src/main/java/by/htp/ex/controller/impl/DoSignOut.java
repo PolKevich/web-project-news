@@ -11,7 +11,9 @@ public class DoSignOut implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getSession(true).setAttribute("user", "notActive");
+		request.getSession(true).removeAttribute("news");
 		response.sendRedirect("index.jsp");
 		
 	}

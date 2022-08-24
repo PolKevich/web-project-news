@@ -6,6 +6,6 @@ public interface IntUserDao {
 	
 	boolean logination(String login, String password) throws DaoException ;
 	boolean registration(NewUserInfo user) throws DaoException ;
-	String getRole(String login, String password) throws DaoException;
+	String getRole(String login, String password) throws DaoException; //Role а не getRole
 	
 }
