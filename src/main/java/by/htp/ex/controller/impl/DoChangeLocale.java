@@ -7,15 +7,20 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class DoSignOut implements Command {
+public class DoChangeLocale implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getSession(true).setAttribute("user", "notActive");
-		request.getSession(true).removeAttribute("news");
-		request.getSession(true).removeAttribute("editnews");
-		response.sendRedirect("index.jsp");
+		String local = request.getParameter("local");
+		// String changeLink = request.getParameter("url");
+		String changeLink = "go_to_base_page";
+
+		if (local != null) {
+			request.getSession(true).setAttribute("local", local);
+		}
+
+		response.sendRedirect("controller?command=" + changeLink);
 
 	}
 

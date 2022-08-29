@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+    
+    <fmt:setLocale value="${sessionScope.local}" />
+<fmt:setBundle basename="localization.local" var="loc" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.welcome"
+	var="welcome" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.management"
+			 var="management" />
+			 
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +34,7 @@
 					<div class="menu">
 
 				<c:if test="${sessionScope.user eq 'notActive'}">
-				    Welcome!!!!!
+				    ${welcome}
 					<%-- <c:import url=""></c:import> --%>
 				</c:if>
 				
@@ -49,6 +58,14 @@
 					<c:import url="/WEB-INF/pages/tiles/addNews.jsp" />
 					
 				</c:if>
+				
+				
+				
+				<c:if test="${sessionScope.editnews eq 'active'}">
+					<c:import url="/WEB-INF/pages/tiles/editNews.jsp" />
+					
+				</c:if>
+				
 				
 				<c:if test="${sessionScope.news eq 'error'}">
 					<c:import url="/WEB-INF/pages/tiles/error.jsp" />

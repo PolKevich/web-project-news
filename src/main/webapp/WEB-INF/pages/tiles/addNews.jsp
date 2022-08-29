@@ -18,7 +18,7 @@
             <textarea name="content" cols="90" rows="15" required="required"/></textarea> <br /> </label>
             
             <label>Date:<br />
-		<input type="date" name="newsData"/><br /> </label>
+		<input type="date" name="newsData" required="required"/><br /> </label>
            
   </div>
   

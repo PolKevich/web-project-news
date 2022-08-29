@@ -1,6 +1,7 @@
 package by.htp.ex.controller.impl;
 
 import java.io.IOException;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class DoAddNews implements Command {
+public class GoToEditNews implements Command {
 
 	private static final Logger log = LogManager.getRootLogger();
 
@@ -22,26 +23,35 @@ public class DoAddNews implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String title = request.getParameter("title");
-		String briefNews = request.getParameter("briefNews");
-		String content = request.getParameter("content");
-		String newsData = request.getParameter("newsData");
-
-		News news = new News(title, briefNews, content, newsData);
+		String id = request.getParameter("id");
 
 		try {
+			News news = newsService.findById(Integer.parseInt(id));
 
-			if (newsService.save(news)) {
+			int idNews = news.getIdNews();
+			request.getSession(true).setAttribute("idNews", idNews);
 
-				request.getSession(true).removeAttribute("news");
-				response.sendRedirect("controller?command=go_to_news_list");
-			}
+			String title = news.getTitle();
+			request.getSession(true).setAttribute("title", title);
+
+			String briefNews = news.getBriefNews();
+			request.getSession(true).setAttribute("briefNews", briefNews);
+
+			String content = news.getContent();
+			request.getSession(true).setAttribute("content", content);
+
+			String newsDate = news.getNewsDate();
+			request.getSession(true).setAttribute("newsDate", newsDate);
+
+			request.getSession(true).setAttribute("editnews", "active");
+			request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 
 		} catch (ServiceException e) {
 
 			log.error(e);
 			response.sendRedirect("controller?command=go_to_error_page");
 		}
+
 	}
 
 }

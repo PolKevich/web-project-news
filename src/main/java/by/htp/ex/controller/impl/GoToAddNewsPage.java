@@ -11,10 +11,10 @@ public class GoToAddNewsPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.getSession(true).setAttribute("news", "addNews");
 		request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
-		
+
 	}
 
 }

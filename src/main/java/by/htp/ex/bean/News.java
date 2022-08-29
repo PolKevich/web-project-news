@@ -2,20 +2,20 @@ package by.htp.ex.bean;
 
 import java.io.Serializable;
 
-public class News implements Serializable{
+public class News implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	private Integer idNews=0;
-	private String title="";
-	private String briefNews="";
-	private String content="";
-	private String newsDate="";
+
+	private Integer idNews = 0;
+	private String title = "";
+	private String briefNews = "";
+	private String content = "";
+	private String newsDate = "";
 
 	public News() {
-		
+
 	}
-	
+
 	public News(int idNews, String title, String briefNews, String content, String newsDate) {
 		super();
 		this.setIdNews(idNews);
@@ -24,7 +24,7 @@ public class News implements Serializable{
 		this.setContent(content);
 		this.setNewsDate(newsDate);
 	}
-	
+
 	public News(String title, String briefNews, String content, String newsDate) {
 		super();
 		this.setTitle(title);
@@ -72,12 +72,12 @@ public class News implements Serializable{
 	public void setNewsDate(String newsDate) {
 		this.newsDate = newsDate;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return super.hashCode();

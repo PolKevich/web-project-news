@@ -4,33 +4,31 @@ import java.sql.Array;
 import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Clob;
-import java.sql.Connection; 
-import java.sql.DatabaseMetaData; 
-import java.sql.DriverManager; 
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
 import java.sql.NClob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLClientInfoException;
-import java.sql.SQLException; import java.sql.SQLWarning; 
-import java.sql.SQLXML; 
-import java.sql.Savepoint; 
+import java.sql.SQLException;
+import java.sql.SQLWarning;
+import java.sql.SQLXML;
+import java.sql.Savepoint;
 import java.sql.Statement;
-import java.sql.Struct; 
+import java.sql.Struct;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.ArrayBlockingQueue; 
-import java.util.concurrent.BlockingQueue; 
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 public final class ConnectionPool {
 
-	// очередь свободных connections
 	private BlockingQueue<Connection> connectionQueue;
-	// очередь отданных connections
 	private BlockingQueue<Connection> givenAwayConQueue;
 
 	private String driverName;
@@ -38,7 +36,7 @@ public final class ConnectionPool {
 	private String user;
 	private String password;
 	private int poolSize;
-	
+
 	private static final ConnectionPool instance = new ConnectionPool();
 	private static final Logger log = LogManager.getRootLogger();
 
@@ -53,27 +51,25 @@ public final class ConnectionPool {
 		try {
 
 			this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POLL_SIZE));
-			
-			
+
 		} catch (NumberFormatException e) {
 			poolSize = 5;
-	}
-		try {		
-			initPoolData();
-		}catch (ConnectionPoolException e) {
-			
 		}
-		
+		try {
+			initPoolData();
+		} catch (ConnectionPoolException e) {
+
+		}
+
 	}
-	
-	public static ConnectionPool getInstance() {
-		
+
+	public static ConnectionPool getInstance() throws ConnectionPoolException {
+
 		return instance;
 	}
 
 	public void initPoolData() throws ConnectionPoolException {
-		
-		// Locale.setDefault(Locale.ENGLISH);
+
 		try {
 			Class.forName(driverName);
 
@@ -84,11 +80,10 @@ public final class ConnectionPool {
 			for (int i = 0; i < poolSize; i++) {
 
 				Connection connection = DriverManager.getConnection(url, user, password);
-				// wrapping
+
 				PooledConnection pooledConnection = new PooledConnection(connection);
 
 				connectionQueue.add(pooledConnection);
-
 			}
 		} catch (SQLException e) {
 
@@ -125,15 +120,13 @@ public final class ConnectionPool {
 
 		try {
 
-			connection = connectionQueue.take(); // достаем connection
-			// метод take ждет пока освободиться connection
+			connection = connectionQueue.take();
+			givenAwayConQueue.add(connection);
 
-			givenAwayConQueue.add(connection); // перекладываем connection в очередь занятых соединений
 		} catch (InterruptedException e) {
 			throw new ConnectionPoolException("InterruptedException", e);
 		}
 		return connection;
-		// возвр-ся объект класса PooledConnection
 	}
 
 	public void closeConnection(Connection con, Statement st, ResultSet rs) {
@@ -182,7 +175,7 @@ public final class ConnectionPool {
 
 	private class PooledConnection implements Connection {
 
-		private Connection connection; // этот connection из DriverManager
+		private Connection connection;
 
 		public PooledConnection(Connection c) throws SQLException {
 
@@ -197,7 +190,7 @@ public final class ConnectionPool {
 
 		public void clearWarnings() throws SQLException {
 
-			connection.clearWarnings(); // делегируем поведение clearWarnings обернутому connection
+			connection.clearWarnings();
 		}
 
 		public void close() throws SQLException {
@@ -211,14 +204,13 @@ public final class ConnectionPool {
 				connection.setReadOnly(false);
 			}
 			if (!givenAwayConQueue.remove(this)) {
-				// достаем connection из очереди занятых connection , т.к. это внутр класс, то
-				// мы имеем доступ к занятым и свободным connections
+
 				throw new SQLException("Error deleting connection from the given away connections pool.");
 
 			}
 
 			if (!connectionQueue.offer(this)) {
-				// перекладываем connection из очереди свободных connection
+
 				throw new SQLException("Error allocating connection in the pool.");
 			}
 		}

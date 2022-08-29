@@ -16,30 +16,30 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class GoToBasePage implements Command {
-	
+
 	private static final Logger log = LogManager.getRootLogger();
-	
+
 	private final IntNewsService newsService = ServiceProvider.getInstance().getNewsService();
 	private static final int newsNumber = 5;
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<News> latestNews;
-		
+
 		try {
-			
+
 			latestNews = newsService.latestList(newsNumber);
 			request.setAttribute("news", latestNews);
-			
+
 		} catch (ServiceException e) {
 			log.error(e);
-			
+
 		} finally {
-			request.getSession(true).setAttribute("user", "notActive");			
+			request.getSession(true).setAttribute("user", "notActive");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
-			
+
 		}
-		
+
 	}
 
 }

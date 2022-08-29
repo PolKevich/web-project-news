@@ -7,18 +7,20 @@
 
 		<div align="right">
 
-			<a href=""> en </a> &nbsp;&nbsp; 
-			<a	href=""> ru </a> <br /> <br />
+			<a href="controller?command=do_change_locale&local=en"> en </a> &nbsp;&nbsp; 
+			<a	href="controller?command=do_change_locale&local=ru"> ru </a> <br /> <br />
 		</div>		
 		<c:if test="${sessionScope.user eq 'notActive'}">
 			<div align="right">
 				<form action="controller" method="post">
+				
 					<input type="hidden" name="command" value="do_sign_in" /> 
 					Enter login: <input type="text" name="login" value="" /><br /> 
 					Enter password: <input type="password" name="password" value="" /><br />
-					<c:if test="${not (requestScope.AuthenticationError eq null)}">
+					
+					<c:if test="${not (param.AuthenticationError eq null)}">
 						<font color="red"> 
-						   <c:out value="${requestScope.AuthenticationError}" />
+						   <c:out value="${param.AuthenticationError}" />
 						</font> 
 					</c:if>
 										

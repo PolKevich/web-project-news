@@ -15,30 +15,29 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class GoToViewNews implements Command {
-	
+
 	private static final Logger log = LogManager.getRootLogger();
-	
+
 	private final IntNewsService newsService = ServiceProvider.getInstance().getNewsService();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		News news;
-		
-		String id;
 
-		id = request.getParameter("id");
-		
+		String id = request.getParameter("id");
+
 		try {
-			news  = newsService.findById(Integer.parseInt(id)); 
+			News news = newsService.findById(Integer.parseInt(id));
 			request.setAttribute("news", news);
 			request.setAttribute("presentation", "viewNews");
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+
 		} catch (ServiceException e) {
+
 			log.error(e);
 			response.sendRedirect("controller?command=go_to_error_page");
 		}
-		
+
 	}
 
 }

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class NewUserInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String firstName;
 	private String lastName;
 	private String gender;
@@ -12,12 +12,12 @@ public class NewUserInfo implements Serializable {
 	private String login;
 	private String password;
 	private String confirmPassword;
-	
-	
-	public NewUserInfo() {}
-	
-	public NewUserInfo(String firstName, String lastName, String gender, String email,
-			String login, String password, String confirmPassword ) {
+
+	public NewUserInfo() {
+	}
+
+	public NewUserInfo(String firstName, String lastName, String gender, String email, String login, String password,
+			String confirmPassword) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setGender(gender);
@@ -25,8 +25,7 @@ public class NewUserInfo implements Serializable {
 		this.setLogin(login);
 		this.setPassword(password);
 		this.setConfirmPassword(confirmPassword);
-		
-		
+
 	}
 
 	public String getFirstName() {
@@ -84,12 +83,12 @@ public class NewUserInfo implements Serializable {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		return super.equals(obj);
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return super.hashCode();

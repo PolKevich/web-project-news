@@ -11,10 +11,10 @@ public class GoToErrorPage implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.getSession(true).setAttribute("news", "error");
 		request.getRequestDispatcher("/WEB-INF/pages/tiles/error.jsp").forward(request, response);
-		
+
 	}
 
 }

@@ -5,13 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.IntUserDao;
@@ -99,7 +93,7 @@ public class UserDAO implements IntUserDao {
 	}
 
 	@Override
-	public String getRole(String login, String password) throws DaoException {
+	public String role(String login, String password) throws DaoException {
 
 		String role = "guest";
 
@@ -115,7 +109,7 @@ public class UserDAO implements IntUserDao {
 			if (rs.next()) {
 
 				role = rs.getString("title");
-				
+
 				return role;
 			}
 
@@ -123,7 +117,7 @@ public class UserDAO implements IntUserDao {
 
 			throw new DaoException(e);
 		}
-		
+
 		return role;
 	}
 
@@ -173,11 +167,11 @@ public class UserDAO implements IntUserDao {
 
 		return rezCheck;
 	}
-	
+
 	public Date registrationDate() {
-		
+
 		GregorianCalendar registrationDate = new GregorianCalendar();
-		
+
 		return new java.sql.Date(registrationDate.getTimeInMillis());
 
 	}
