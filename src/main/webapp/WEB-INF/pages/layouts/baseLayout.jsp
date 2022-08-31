@@ -5,19 +5,16 @@
     
     <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.welcome"
-	var="welcome" />
-<fmt:message bundle="${loc}" key="local.locbutton.name.management"
-			 var="management" />
+<fmt:message bundle="${loc}" key="local.loctitle.name.welcome" var="welcome" />
+<fmt:message bundle="${loc}" key="local.loctitle.name.management" var="management" />
 			 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="script/validation.js"></script>
-<title>locale.linkname.headertitle <!-- <bean:message key="locale.linkname.headertitle" />
- -->
-</title>
+
+<title>${management}</title>
 
 <link rel="stylesheet" type="text/css" href="styles/newsStyle.css">
 
@@ -35,11 +32,12 @@
 
 				<c:if test="${sessionScope.user eq 'notActive'}">
 				    ${welcome}
-					<%-- <c:import url=""></c:import> --%>
+					
 				</c:if>
 				
 				<c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/menu.jsp" />
+					
 				</c:if>
 			</div>
 			
@@ -47,11 +45,12 @@
 
 				<c:if test="${sessionScope.user eq 'notActive'}">
 					<c:import url="/WEB-INF/pages/tiles/guestInfo.jsp" />
+					
 				</c:if>
 				
 				<c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/body.jsp" />
-					<%--!body will order to fix what newslist--%>>
+					
 				</c:if>
 				
 				<c:if test="${sessionScope.news eq 'addNews'}">
@@ -63,7 +62,7 @@
 				
 				<c:if test="${sessionScope.editnews eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/editNews.jsp" />
-					
+							
 				</c:if>
 				
 				
@@ -74,6 +73,7 @@
                
 		             <c:if test="${(sessionScope.user eq 'registration')}">
 				     <c:import url="/WEB-INF/jsp/registration.jsp" />
+				    
 				     </c:if> <br />
 				     	
 			</div>

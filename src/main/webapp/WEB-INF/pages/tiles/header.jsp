@@ -1,17 +1,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<fmt:setLocale value="${sessionScope.local}"/>
+<fmt:setBundle basename="localization.local" var="loc"/>
+<fmt:message bundle="${loc}" key="local.loctitle.name.management"
+             var="management"/>
+ <fmt:message bundle="${loc}" key="local.locbutton.name.ru"
+             var="ru_button"/>
+<fmt:message bundle="${loc}" key="local.locbutton.name.en"
+             var="en_button"/>            
 
 <div class="wrapper">
-	<div class="newstitle">Breaking News</div>
+	<div class="newstitle">${management}</div>
 	
 	<div class="local-link">
 
 		<div align="right">
 
-			<a href="controller?command=do_change_locale&local=en"> en </a> &nbsp;&nbsp; 
-			<a	href="controller?command=do_change_locale&local=ru"> ru </a> <br /> <br />
+			<a href= controller?command=do_change_locale&local=en&url=rrr >${en_button}</a> &nbsp;&nbsp; 
+			<a	href=controller?command=do_change_locale&local=ru&url=rrr> ${ru_button}</a> <br /> <br />
 		</div>		
 		<c:if test="${sessionScope.user eq 'notActive'}">
 			<div align="right">
+			
 				<form action="controller" method="post">
 				
 					<input type="hidden" name="command" value="do_sign_in" /> 
