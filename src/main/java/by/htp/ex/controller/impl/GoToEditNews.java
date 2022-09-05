@@ -44,6 +44,7 @@ public class GoToEditNews implements Command {
 			request.getSession(true).setAttribute("newsDate", newsDate);
 
 			request.getSession(true).setAttribute("editnews", "active");
+			request.getSession(true).setAttribute("url", "controller?command=go_to_edit_news");
 			request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 
 		} catch (ServiceException e) {

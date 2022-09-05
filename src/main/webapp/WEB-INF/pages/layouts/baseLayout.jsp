@@ -14,8 +14,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="script/validation.js"></script>
 
-<title>${management}</title>
-
 <link rel="stylesheet" type="text/css" href="styles/newsStyle.css">
 
 </head>

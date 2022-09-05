@@ -36,6 +36,7 @@ public class GoToBasePage implements Command {
 
 		} finally {
 			request.getSession(true).setAttribute("user", "notActive");
+			request.getSession(true).setAttribute("url", "controller?command=go_to_base_page");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 
 		}

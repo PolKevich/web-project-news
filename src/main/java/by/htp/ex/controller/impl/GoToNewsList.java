@@ -31,7 +31,7 @@ public class GoToNewsList implements Command {
 			request.getSession(true).removeAttribute("editnews");
 			request.setAttribute("news", newsList);
 			request.setAttribute("presentation", "newsList");
-
+			request.getSession(true).setAttribute("url", "controller?command=go_to_news_list");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 
 		} catch (ServiceException e) {

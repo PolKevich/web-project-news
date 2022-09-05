@@ -3,15 +3,17 @@
 
 <fmt:setLocale value="${sessionScope.local}"/>
 <fmt:setBundle basename="localization.local" var="loc"/>
-<fmt:message bundle="${loc}" key="local.loctitle.name.management"
-             var="management"/>
- <fmt:message bundle="${loc}" key="local.locbutton.name.ru"
-             var="ru_button"/>
-<fmt:message bundle="${loc}" key="local.locbutton.name.en"
-             var="en_button"/>            
+<fmt:message bundle="${loc}" key="local.header.newstitle" var="header_newstitle" />
+<fmt:message bundle="${loc}" key="local.header.auth.login" var="auth_login" />
+<fmt:message bundle="${loc}" key="local.header.auth.password" var="auth_password" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.ru" var="ru_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.en" var="en_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.registration" var="registration_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.sign.in" var="sign_in_button" />
+<fmt:message bundle="${loc}" key="local.locbutton.name.sign.out" var="sign_out_button" />          
 
 <div class="wrapper">
-	<div class="newstitle">${management}</div>
+	<div class="newstitle">${header_newstitle}</div>
 	
 	<div class="local-link">
 
@@ -26,8 +28,8 @@
 				<form action="controller" method="post">
 				
 					<input type="hidden" name="command" value="do_sign_in" /> 
-					Enter login: <input type="text" name="login" value="" /><br /> 
-					Enter password: <input type="password" name="password" value="" /><br />
+					${auth_login} <input type="text" name="login" value="" /><br /> 
+					${auth_password}<input type="password" name="password" value="" /><br />
 					
 					<c:if test="${not (param.AuthenticationError eq null)}">
 						<font color="red"> 
@@ -35,7 +37,7 @@
 						</font> 
 					</c:if>
 										
-	<a href="controller?command=go_to_registration_page">Registration</a> <input type="submit" value="Sign In" /> 
+	<a href="controller?command=go_to_registration_page">${registration_button}</a> <input type="submit" value="${sign_in_button}" /> 
 				
 				</form>
 					
@@ -54,7 +56,7 @@
 			<div align="right">
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="do_sign_out" /> 
-					<input type="submit" value="Sign Out" /><br />
+					<input type="submit" value="${sign_out_button}" /><br />
 				</form>
 			</div>
 
