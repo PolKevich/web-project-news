@@ -5,8 +5,7 @@
     
     <fmt:setLocale value="${sessionScope.local}" />
 <fmt:setBundle basename="localization.local" var="loc" />
-<fmt:message bundle="${loc}" key="local.loctitle.name.welcome" var="welcome" />
-<fmt:message bundle="${loc}" key="local.loctitle.name.management" var="management" />
+<fmt:message bundle="${loc}" key="local.base.welcome" var="base_welcome" />
 			 
 <!DOCTYPE html>
 <html>
@@ -29,7 +28,7 @@
 					<div class="menu">
 
 				<c:if test="${sessionScope.user eq 'notActive'}">
-				    ${welcome}
+				    ${base_welcome}
 					
 				</c:if>
 				

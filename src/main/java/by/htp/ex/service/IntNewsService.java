@@ -14,8 +14,10 @@ public interface IntNewsService {
 
 	List<News> latestList(int count) throws ServiceException;
 
-	List<News> list() throws ServiceException;
+	List<News> list(Integer pageNumber, String newsCountOnPage) throws ServiceException;
 
 	News findById(int id) throws ServiceException;
+
+	List<Integer> getPage();
 
 }

@@ -7,7 +7,8 @@ Error!
   
   <br>
   <div>
-    <input type="button" onclick="history.back();" value="Back"/>
+   
+    <a href="./">Back</a>
   </div>
   
   

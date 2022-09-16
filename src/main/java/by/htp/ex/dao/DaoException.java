@@ -33,8 +33,8 @@ public class DaoException extends Exception {
 		return listMassage;
 	}
 
-	public static void clearListMassage() {
-		listMassage.clear();
+	public static void clearListKey(String key) {
+		listMassage.remove(key);
 	}
 
 }

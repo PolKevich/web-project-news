@@ -6,6 +6,7 @@
 <fmt:message bundle="${loc}" key="local.header.newstitle" var="header_newstitle" />
 <fmt:message bundle="${loc}" key="local.header.auth.login" var="auth_login" />
 <fmt:message bundle="${loc}" key="local.header.auth.password" var="auth_password" />
+<fmt:message bundle="${loc}" key="local.header.auth.errorloginpassword" var="error_loginpassword" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.ru" var="ru_button" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.en" var="en_button" />
 <fmt:message bundle="${loc}" key="local.locbutton.name.registration" var="registration_button" />
@@ -33,7 +34,7 @@
 					
 					<c:if test="${not (param.AuthenticationError eq null)}">
 						<font color="red"> 
-						   <c:out value="${param.AuthenticationError}" />
+						   <c:out value="${error_loginpassword}" />
 						</font> 
 					</c:if>
 										
@@ -45,11 +46,6 @@
 
 		</c:if>		
 		
-		<div align="right">
-				<c:if test="${(sessionScope.user eq 'registration')}">
-				     User registration:
-				     </div>
-				     </c:if> 
 		
 		<c:if test="${sessionScope.user eq 'active'}">
 

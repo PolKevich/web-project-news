@@ -17,19 +17,20 @@ import jakarta.servlet.http.HttpServletResponse;
 public class DoRegistration implements Command {
 
 	private final IntUserService userService = ServiceProvider.getInstance().getUserService();
+	
+	private final Map<String, String> invalidRegistrationData = new HashMap();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String firstName = request.getParameter("firstName");
 		String lastName = request.getParameter("lastName");
-		String gender = request.getParameter("gender");
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		String confirmPassword = request.getParameter("confirmPassword");
 
-		NewUserInfo user = new NewUserInfo(firstName, lastName, gender, email, login, password, confirmPassword);
+		NewUserInfo user = new NewUserInfo(firstName, lastName, email, login, password, confirmPassword);
 
 		try {
 
@@ -45,7 +46,6 @@ public class DoRegistration implements Command {
 
 		} catch (ServiceException massage) {
 
-			Map<String, String> invalidRegistrationData = new HashMap();
 
 			for (Entry<String, String> entry : massage.getListMassage().entrySet()) {
 				String key = entry.getKey();
@@ -53,16 +53,21 @@ public class DoRegistration implements Command {
 				invalidRegistrationData.put(key, value);
 			}
 
-			massage.clearListMassage();
-
+			
 			if (invalidRegistrationData.containsKey("email")) {
 				email = invalidRegistrationData.get("email");
 				request.getSession(true).setAttribute("email", email);
+			}
+			else {
+				request.getSession(true).removeAttribute("email");
 			}
 
 			if (invalidRegistrationData.containsKey("login")) {
 				login = invalidRegistrationData.get("login");
 				request.getSession(true).setAttribute("login", login);
+			}
+			else {
+				request.getSession(true).removeAttribute("login");
 			}
 
 			if (invalidRegistrationData.containsKey("password")) {
@@ -70,11 +75,19 @@ public class DoRegistration implements Command {
 				request.getSession(true).setAttribute("password", password);
 
 			}
+			else {
+				request.getSession(true).removeAttribute("password");
+			}
 
 			if (invalidRegistrationData.containsKey("confirmPassword")) {
 				confirmPassword = invalidRegistrationData.get("confirmPassword");
 				request.getSession(true).setAttribute("confirmPassword", confirmPassword);
 			}
+			
+			else {
+				request.getSession(true).removeAttribute("confirmPassword");
+			}
+			
 			invalidRegistrationData.clear();
 			response.sendRedirect("controller?command=go_to_registration_page");
 

@@ -21,10 +21,18 @@ public class DoDelNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String[] idNewses = request.getParameterValues("id");
-
+		
 		try {
+			
+			String[] idNewses = request.getParameterValues("id");
+			
+			if (idNewses == null) {
+				
+				response.sendRedirect("controller?command=go_to_news_list");
+				
+				return;
+							
+			}
 
 			newsService.delete(idNewses);
 

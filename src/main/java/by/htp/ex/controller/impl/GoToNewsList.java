@@ -23,12 +23,16 @@ public class GoToNewsList implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		List<News> newsList;
+		Integer pageNumber = getPageNumber(request);
+		String newsCount=request.getParameter("newsCount");
 
 		try {
-			newsList = newsService.list();
+			newsList = newsService.list(pageNumber, newsCount);
 			request.getSession(true).removeAttribute("news");
 			request.getSession(true).removeAttribute("editnews");
+			request.setAttribute("pageCount", newsService.getPage());
 			request.setAttribute("news", newsList);
 			request.setAttribute("presentation", "newsList");
 			request.getSession(true).setAttribute("url", "controller?command=go_to_news_list");
@@ -39,6 +43,21 @@ public class GoToNewsList implements Command {
 			response.sendRedirect("controller?command=go_to_error_page");
 		}
 
+	}
+	
+	private Integer getPageNumber(HttpServletRequest request) {
+		
+		String page = request.getParameter("pageNumber");
+		
+		if (page != null) {
+			request.getSession().setAttribute("pageNumber", Integer.valueOf(page));
+		}
+		Integer pageNumber = (Integer) request.getSession().getAttribute("pageNumber");
+		
+		if (pageNumber == null) {
+			pageNumber = 1;
+		}
+		return pageNumber;
 	}
 
 }

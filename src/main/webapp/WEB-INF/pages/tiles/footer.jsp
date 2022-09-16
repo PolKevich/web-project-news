@@ -1,3 +1,3 @@
 
-<center>footer
+<center>it-academy
 </center>

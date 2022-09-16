@@ -9,7 +9,7 @@ public class ServiceException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
-	private Map<String, String> listMassage = new HashMap();
+	private static Map<String, String> listMassage = new HashMap();
 
 	public ServiceException(Exception e) {
 		super(e);
@@ -34,10 +34,10 @@ public class ServiceException extends Exception {
 	public Map<String, String> getListMassage() {
 		return listMassage;
 	}
-
-	public void clearListMassage() {
-		listMassage.clear();
-		DaoException.clearListMassage();
+	
+	public static void clearListKey(String key) {
+		
+		listMassage.remove(key);
 	}
 
 }

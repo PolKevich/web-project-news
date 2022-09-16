@@ -19,9 +19,6 @@ public class DoChangeLocale implements Command {
 		
 		String url = (String) getSession.getAttribute("url");
 		
-		System.out.println("url = " + url);
-		
-		
 		getSession.setAttribute("url", url);
 		
 		if (url == null | url.isEmpty() ) {

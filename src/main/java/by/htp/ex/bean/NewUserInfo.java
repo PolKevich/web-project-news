@@ -1,13 +1,14 @@
 package by.htp.ex.bean;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class NewUserInfo implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
 	private String firstName;
 	private String lastName;
-	private String gender;
 	private String email;
 	private String login;
 	private String password;
@@ -16,11 +17,10 @@ public class NewUserInfo implements Serializable {
 	public NewUserInfo() {
 	}
 
-	public NewUserInfo(String firstName, String lastName, String gender, String email, String login, String password,
+	public NewUserInfo(String firstName, String lastName, String email, String login, String password,
 			String confirmPassword) {
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
-		this.setGender(gender);
 		this.setEmail(email);
 		this.setLogin(login);
 		this.setPassword(password);
@@ -44,13 +44,6 @@ public class NewUserInfo implements Serializable {
 		this.lastName = lastName;
 	}
 
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
 
 	public String getEmail() {
 		return email;
@@ -83,15 +76,29 @@ public class NewUserInfo implements Serializable {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
+	
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        NewUserInfo nui = (NewUserInfo) o;
+        return Objects.equals(firstName, nui.firstName) && Objects.equals(lastName, nui.lastName) 
+        		&& Objects.equals(email, nui.email) && Objects.equals(login, nui.login) 
+   && Objects.equals(password, nui.password) && Objects.equals(confirmPassword, nui.confirmPassword);
+    }
 
 	@Override
 	public int hashCode() {
-		return super.hashCode();
+		return Objects.hash(firstName, lastName, email, login, password, confirmPassword);
 	}
+	
+    @Override
+    public String toString() {
+        return "NewUserInfo{" +
+                "firstName ='" + firstName + '\'' + ", lastName ='" + lastName + '\'' +
+                ", email ='" + email + '\'' + ", login ='" + login + '\'' +
+                ", password ='" + password + '\'' + ", confirmPassword ='" + confirmPassword + '\'' + '}';
+    }
 
 }

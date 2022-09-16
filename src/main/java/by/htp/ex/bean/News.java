@@ -1,6 +1,7 @@
 package by.htp.ex.bean;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class News implements Serializable {
 
@@ -73,13 +74,25 @@ public class News implements Serializable {
 		this.newsDate = newsDate;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News news = (News) o;
+        return idNews == news.idNews && Objects.equals(title, news.title) && Objects.equals(briefNews, news.briefNews)
+                && Objects.equals(content, news.content) && Objects.equals(newsDate, news.newsDate);
+    }
 
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return Objects.hash(idNews, title, briefNews, content, newsDate);
+    }
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "idNews=" + idNews + ", title='" + title + '\'' + ", briefNews='" + briefNews + '\'' +
+                ", content='" + content + '\'' + ", newsDate='" + newsDate + '\'' +
+                '}';
+    }
 }

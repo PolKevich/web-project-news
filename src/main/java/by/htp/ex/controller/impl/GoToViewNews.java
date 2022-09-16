@@ -29,7 +29,7 @@ public class GoToViewNews implements Command {
 			News news = newsService.findById(Integer.parseInt(id));
 			request.setAttribute("news", news);
 			request.setAttribute("presentation", "viewNews");
-			request.getSession(true).setAttribute("url", "controller?command=go_to_view_news");
+			request.getSession(true).setAttribute("url", "controller?command=go_to_view_news&id="+id);
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 
 		} catch (ServiceException e) {

@@ -136,7 +136,9 @@ public class UserDAO implements IntUserDao {
 
 				throw new DaoException("login", "This login is already in use!");
 			}
-
+			
+			DaoException.clearListKey("login");
+			
 		} catch (SQLException e) {
 			throw new DaoException(e);
 		}
@@ -159,6 +161,8 @@ public class UserDAO implements IntUserDao {
 
 				throw new DaoException("email", "This email is already in use!");
 			}
+			
+			DaoException.clearListKey("email");
 
 		} catch (SQLException e) {
 

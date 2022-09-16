@@ -3,6 +3,7 @@ package by.htp.ex.service.validation;
 import java.util.regex.Pattern;
 
 import by.htp.ex.bean.NewUserInfo;
+import by.htp.ex.dao.DaoException;
 import by.htp.ex.service.ServiceException;
 
 public class UserDataValidationImpl implements UserDataValidation {
@@ -21,6 +22,8 @@ public class UserDataValidationImpl implements UserDataValidation {
 			throw new ServiceException("login", "incorrectLogin!");
 		}
 
+		ServiceException.clearListKey("login");
+		
 		return checkLogin;
 
 	}
@@ -33,9 +36,12 @@ public class UserDataValidationImpl implements UserDataValidation {
 		if (!(Pattern.compile(regPassword).matcher(password).matches())) {
 
 			checkPassword = false;
+			
 			throw new ServiceException("password", "incorrectPassword");
 		}
 
+		ServiceException.clearListKey("password");
+		
 		return checkPassword;
 
 	}
@@ -43,10 +49,13 @@ public class UserDataValidationImpl implements UserDataValidation {
 	public boolean checkPasswordAndConfirmPassword(String password, String confirmPassword) throws ServiceException {
 
 		if (password.equals(confirmPassword)) {
+			
+			ServiceException.clearListKey("confirmPassword");
 
 			return checkPassword(password);
 
 		} else {
+			
 			throw new ServiceException("confirmPassword", "PasswordNotEqualsConfirmPassword");
 
 		}
@@ -59,9 +68,12 @@ public class UserDataValidationImpl implements UserDataValidation {
 		if (!(Pattern.compile(regEmail).matcher(email).matches())) {
 
 			checkEmail = false;
+			
 			throw new ServiceException("email", "incorrectEmail");
 		}
 
+		ServiceException.clearListKey("email");
+		
 		return checkEmail;
 
 	}
@@ -72,6 +84,7 @@ public class UserDataValidationImpl implements UserDataValidation {
 		boolean checkRegistration = true;
 
 		if (!(checkLogin(user.getLogin())
+				
 				&& checkPasswordAndConfirmPassword(user.getPassword(), user.getConfirmPassword())
 				&& checkEmail(user.getEmail()))) {
 			checkRegistration = false;
